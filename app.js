@@ -38,6 +38,17 @@ app.get('/data0527', (req, res) => {
   res.json(data);
 });
 
+// post方法，/data0527
+app.use(express.json());
+app.post('/data0527', (req, res) => {
+  const data = req.body; // 獲取請求體中的資料
+  if (Object.keys(data).length === 0) {
+    return res.json({ message: '無資料' });
+  }
+  console.log(data);
+  res.json('這是卡盃亞軍' + data.name);
+});
+
 
 
 
@@ -77,6 +88,8 @@ app.get('/customers0527SQL', (req, res) => {
   });
 });
 
+// 測試get請求，配合res.json，輸出資料庫northwind的orders表，真的連接資料庫
+// 返回一個html頁面，呈現資料庫的orders表
 
 
 
@@ -84,7 +97,7 @@ app.get('/customers0527SQL', (req, res) => {
 
 
 app.use(logger('dev'));
-app.use(express.json());
+// app.use(express.json()); 上移
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
