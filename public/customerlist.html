@@ -5,6 +5,27 @@
     <title>Title</title>
 </head>
 <body>
+<!--從資料庫抓取customers，並輸出-->
+<h1>Customer List</h1>
+<table border="1">
+    <tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    <% customers.forEach(customer => { %>
+    <tr>
+        <td><%= customer.id %></td>
+        <td><%= customer.firstName %></td>
+        <td><%= customer.lastName %></td>
+        <td><%= customer.email %></td>
+        <td><%= customer.phone %></td>
+    </tr>
+    <% }) %>
+</table>
+
 
 </body>
 </html>

@@ -8,6 +8,10 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 // 測試get和post請求
 // GET請求
 app.get('/GETtest0527', (req, res) => {
@@ -63,7 +67,7 @@ app.get('/customers0527', (req, res) => {
 });
 
 
-// 測試get請求，配合res.json，輸出資料庫northwind的orders表，真的連接資料庫
+// 測試get請求，配合res.json，輸出資料庫northwind的customers表，真的連接資料庫
 const mysql = require('mysql2');
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -88,8 +92,16 @@ app.get('/customers0527SQL', (req, res) => {
   });
 });
 
-// 測試get請求，配合res.json，輸出資料庫northwind的orders表，真的連接資料庫
-// 返回一個html頁面，呈現資料庫的orders表
+// 測試get請求，抓取輸出資料庫northwind的customers表，將資料傳給customerlist.html
+// 返回customerlist.html
+app.get('/customerlist0527', (req, res) => {
+  connection.query('select * from customers', (error, results) => {
+    if (error) {
+      return res.status(500).send('資料庫查詢失敗');
+    }
+    res.render('customerlist0527', { customers: results });
+  });
+});
 
 
 
