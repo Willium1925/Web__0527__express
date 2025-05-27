@@ -18,6 +18,7 @@ app.post('/POSTtest0527', (req, res) => {
   res.send('POST 請求 received 0527');
 });
 
+
 // 透過get，回傳images內的圖片
 // public/images資料夾下的圖片angry-knee.gif
 app.get('/images0527', (req, res) => {
@@ -26,10 +27,21 @@ app.get('/images0527', (req, res) => {
 );
 
 
+// get方法，/data0527
+// 返回使用者輸入的資料，json格式，無論使用者輸入多少key value對，都會返回
+// 若無輸入，則返回訊息 無資料
+app.get('/data0527', (req, res) => {
+  const data = req.query; // 獲取查詢參數
+  if (Object.keys(data).length === 0) {
+    return res.json({ message: '無資料' });
+  }
+  res.json(data);
+});
 
 
 
-// 測試get請求，配合res.json，輸出資料庫northwind的customers表
+
+// 測試get請求，配合res.json，輸出假資料
 app.get('/customers0527', (req, res) => {
   const customers = [
     { id: 1, name: 'Customer A' },
@@ -38,6 +50,7 @@ app.get('/customers0527', (req, res) => {
   ];
   res.json(customers);
 });
+
 
 // 測試get請求，配合res.json，輸出資料庫northwind的orders表，真的連接資料庫
 const mysql = require('mysql2');
@@ -63,6 +76,9 @@ app.get('/customers0527SQL', (req, res) => {
     res.json(results);
   });
 });
+
+
+
 
 
 
